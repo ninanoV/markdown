@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Word Wolf Game</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <h1>Word Wolf Game</h1>
+    <div id="setup">
+        <label for="players">Enter player names (comma separated):</label>
+        <input type="text" id="players">
+        <label for="word">Enter the word for villagers:</label>
+        <input type="text" id="word">
+        <label for="wolfWord">Enter the word for the wolf:</label>
+        <input type="text" id="wolfWord">
+        <button onclick="startGame()">Start Game</button>
+    </div>
+    <div id="game" style="display:none;">
+        <h2 id="playerName"></h2>
+        <p>Your word is: <span id="playerWord"></span></p>
+        <button onclick="nextPlayer()">Next Player</button>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>

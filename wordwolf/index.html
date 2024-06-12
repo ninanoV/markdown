@@ -4,17 +4,34 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Word Wolf Game</title>
-    <link rel="stylesheet" href="style.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 0;
+            padding: 20px;
+        }
+
+        #setup {
+            margin-top: 50px;
+        }
+
+        #game {
+            margin-top: 50px;
+        }
+
+        input, button {
+            margin: 10px;
+            padding: 10px;
+            font-size: 16px;
+        }
+    </style>
 </head>
 <body>
     <h1>Word Wolf Game</h1>
     <div id="setup">
         <label for="players">Enter player names (comma separated):</label>
         <input type="text" id="players">
-        <label for="word">Enter the word for villagers:</label>
-        <input type="text" id="word">
-        <label for="wolfWord">Enter the word for the wolf:</label>
-        <input type="text" id="wolfWord">
         <button onclick="startGame()">Start Game</button>
     </div>
     <div id="game" style="display:none;">
@@ -22,6 +39,52 @@
         <p>Your word is: <span id="playerWord"></span></p>
         <button onclick="nextPlayer()">Next Player</button>
     </div>
-    <script src="script.js"></script>
+    <script>
+        const words = [
+            'apple', 'banana', 'orange', 'grape', 'peach', 'strawberry', 'watermelon', 'melon', 'kiwi', 'pineapple',
+            'carrot', 'potato', 'tomato', 'cucumber', 'broccoli', 'cabbage', 'lettuce', 'onion', 'garlic', 'pepper',
+            'dog', 'cat', 'lion', 'tiger', 'elephant', 'giraffe', 'zebra', 'horse', 'sheep', 'cow',
+            'car', 'bus', 'train', 'bicycle', 'motorcycle', 'airplane', 'boat', 'ship', 'submarine', 'helicopter'
+        ];
+        let players = [];
+        let currentPlayerIndex = 0;
+        let wolfIndex = 0;
+        let villagerWord = '';
+        let wolfWord = '';
+
+        function getRandomWords() {
+            const shuffledWords = words.sort(() => 0.5 - Math.random());
+            return shuffledWords.slice(0, 2);
+        }
+
+        function startGame() {
+            const playersInput = document.getElementById('players').value;
+            players = playersInput.split(',').map(name => name.trim());
+            [villagerWord, wolfWord] = getRandomWords();
+            wolfIndex = Math.floor(Math.random() * players.length);
+
+            document.getElementById('setup').style.display = 'none';
+            document.getElementById('game').style.display = 'block';
+
+            showPlayer();
+        }
+
+        function showPlayer() {
+            if (currentPlayerIndex < players.length) {
+                const playerName = players[currentPlayerIndex];
+                const playerWord = currentPlayerIndex === wolfIndex ? wolfWord : villagerWord;
+
+                document.getElementById('playerName').textContent = playerName;
+                document.getElementById('playerWord').textContent = playerWord;
+            } else {
+                document.getElementById('game').innerHTML = '<h2>All players have received their words. Start the discussion!</h2>';
+            }
+        }
+
+        function nextPlayer() {
+            currentPlayerIndex++;
+            showPlayer();
+        }
+    </script>
 </body>
 </html>

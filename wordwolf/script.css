@@ -1,0 +1,34 @@
+let players = [];
+let currentPlayerIndex = 0;
+let wolfIndex = 0;
+
+function startGame() {
+    const playersInput = document.getElementById('players').value;
+    const word = document.getElementById('word').value;
+    const wolfWord = document.getElementById('wolfWord').value;
+
+    players = playersInput.split(',').map(name => name.trim());
+    wolfIndex = Math.floor(Math.random() * players.length);
+
+    document.getElementById('setup').style.display = 'none';
+    document.getElementById('game').style.display = 'block';
+
+    showPlayer();
+}
+
+function showPlayer() {
+    if (currentPlayerIndex < players.length) {
+        const playerName = players[currentPlayerIndex];
+        const playerWord = currentPlayerIndex === wolfIndex ? document.getElementById('wolfWord').value : document.getElementById('word').value;
+
+        document.getElementById('playerName').textContent = playerName;
+        document.getElementById('playerWord').textContent = playerWord;
+    } else {
+        document.getElementById('game').innerHTML = '<h2>All players have received their words. Start the discussion!</h2>';
+    }
+}
+
+function nextPlayer() {
+    currentPlayerIndex++;
+    showPlayer();
+}

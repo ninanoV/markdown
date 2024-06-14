@@ -95,8 +95,12 @@
         }
 
         function showTransition() {
-            document.getElementById('transition').style.display = 'block';
-            document.getElementById('game').style.display = 'none';
+            if (currentPlayerIndex < players.length) {
+                document.getElementById('transition').style.display = 'block';
+                document.getElementById('game').style.display = 'none';
+            } else {
+                document.getElementById('game').innerHTML = '<h2>All players have received their words. Start the discussion!</h2>';
+            }
         }
 
         function showPlayer() {
@@ -109,8 +113,6 @@
 
                 document.getElementById('transition').style.display = 'none';
                 document.getElementById('game').style.display = 'block';
-            } else {
-                document.getElementById('game').innerHTML = '<h2>All players have received their words. Start the discussion!</h2>';
             }
         }
 

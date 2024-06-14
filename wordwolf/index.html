@@ -16,7 +16,7 @@
             margin-top: 50px;
         }
 
-        #game {
+        #game, #transition {
             margin-top: 50px;
         }
 
@@ -33,6 +33,10 @@
         <label for="players">Enter player names (comma separated):</label>
         <input type="text" id="players">
         <button onclick="startGame()">Start Game</button>
+    </div>
+    <div id="transition" style="display:none;">
+        <h2>Prepare the next player</h2>
+        <button onclick="showPlayer()">Reveal Word</button>
     </div>
     <div id="game" style="display:none;">
         <h2 id="playerName"></h2>
@@ -85,9 +89,14 @@
             wolfIndex = Math.floor(Math.random() * players.length);
 
             document.getElementById('setup').style.display = 'none';
-            document.getElementById('game').style.display = 'block';
+            document.getElementById('transition').style.display = 'block';
 
-            showPlayer();
+            showTransition();
+        }
+
+        function showTransition() {
+            document.getElementById('transition').style.display = 'block';
+            document.getElementById('game').style.display = 'none';
         }
 
         function showPlayer() {
@@ -97,6 +106,9 @@
 
                 document.getElementById('playerName').textContent = playerName;
                 document.getElementById('playerWord').textContent = playerWord;
+
+                document.getElementById('transition').style.display = 'none';
+                document.getElementById('game').style.display = 'block';
             } else {
                 document.getElementById('game').innerHTML = '<h2>All players have received their words. Start the discussion!</h2>';
             }
@@ -104,7 +116,7 @@
 
         function nextPlayer() {
             currentPlayerIndex++;
-            showPlayer();
+            showTransition();
         }
     </script>
 </body>
